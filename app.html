@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>OpenTalk — App</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <!-- Firebase (CDN) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <div class="logoMark" aria-hidden="true">
+        <span class="dot green"></span><span class="dot yellow"></span><span class="dot red"></span>
+      </div>
+      <div>
+        <div class="brandName">OpenTalk</div>
+        <div class="brandTag">Parler sans déranger.</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Accueil</a>
+      <button id="logoutBtn" class="btn ghost hidden">Se déconnecter</button>
+    </nav>
+  </header>
+
+  <main class="app">
+    <section id="authPanel" class="card">
+      <h2>Entrer dans OpenTalk</h2>
+      <p class="sub">18+ · texte uniquement · pas de likes · respect obligatoire</p>
+
+      <div class="row">
+        <label>Email</label>
+        <input id="email" type="email" placeholder="ton@email.com" autocomplete="email"/>
+      </div>
+      <div class="row">
+        <label>Mot de passe</label>
+        <input id="password" type="password" placeholder="••••••••" autocomplete="current-password"/>
+      </div>
+
+      <div class="row">
+        <label>Pseudo / prénom</label>
+        <input id="displayName" type="text" placeholder="Ex : Alex" maxlength="24"/>
+      </div>
+
+      <div class="row inline">
+        <input id="adultCheck" type="checkbox"/>
+        <label for="adultCheck">Je confirme avoir au moins 18 ans.</label>
+      </div>
+
+      <div class="row">
+        <button id="signupBtn" class="btn">Créer un compte</button>
+        <button id="loginBtn" class="btn ghost">Se connecter</button>
+      </div>
+
+      <p id="authMsg" class="fine warn"></p>
+    </section>
+
+    <section id="mainPanel" class="hidden">
+      <div class="grid">
+        <section class="card">
+          <h3>Mon statut</h3>
+          <div class="statusRow">
+            <button class="statusBtn green" data-status="GREEN">🟢 Disponible</button>
+            <button class="statusBtn yellow" data-status="YELLOW">🟡 Plus tard</button>
+            <button class="statusBtn red" data-status="RED">🔴 Pas dispo</button>
+          </div>
+          <p class="fine">Chaque 7 jours, OpenTalk te redemande de confirmer ta visibilité.</p>
+          <div id="reconfirmBox" class="hidden reconfirm">
+            <div><strong>Confirmation</strong> : veux-tu rester visible sur OpenTalk ?</div>
+            <div class="row">
+              <button id="reconfirmYes" class="btn">Oui, je reste visible</button>
+              <button id="reconfirmNo" class="btn danger">Non, je passe invisible</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h3>Personnes disponibles</h3>
+          <p class="fine">Tu verras surtout celles qui répondent vite.</p>
+          <div id="peopleList" class="list"></div>
+        </section>
+
+        <section class="card">
+          <h3>Demandes</h3>
+          <div id="inbox" class="list"></div>
+        </section>
+
+        <section class="card">
+          <h3>Groupes</h3>
+          <div class="row inline">
+            <input id="groupName" type="text" placeholder="Créer un groupe (ex: Mécanique)" maxlength="40"/>
+            <button id="createGroupBtn" class="btn">Créer</button>
+          </div>
+          <div id="groupList" class="list"></div>
+        </section>
+
+        <section class="card wide">
+          <div class="chatHeader">
+            <h3 id="chatTitle">Discussion</h3>
+            <button id="panicBtn" class="btn danger hidden">🔴 Bouton rouge — Stop</button>
+          </div>
+          <div id="chatBox" class="chatBox"></div>
+          <div class="row inline">
+            <input id="chatInput" type="text" placeholder="Écris ici… (respect obligatoire)" maxlength="400"/>
+            <button id="sendBtn" class="btn">Envoyer</button>
+          </div>
+          <p class="fine">Pas d’images. Pas de sexualisation. Pas d’insultes. Si ça te gêne : 🔴 stop.</p>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/firebase-config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
